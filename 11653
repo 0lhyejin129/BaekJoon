@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+	int n = 9;
+
+	for (int i = 2; i < n + 1; i++) {
+    printf("\ni : %d", i);
+		while (n % i == 0) { //n이 i로 나눠지지 않을 때까지
+			n /= i; //n을 i로 나누기
+			printf("\tn : %d", n);
+		}
+	}
+
+	while (1) {
+		if (n == 1) break;
+
+		for (int i = 2; i < 9; i++) {
+			printf("\ni : %d", i);
+			if (n % i == 0) {
+				n /= i;
+				printf("\tn : %d", n);
+				break;
+			}
+		}
+	}
+
+  printf("\n");
+	
+
+	return 0;
+}
+
+/*
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+	int n; //정수 n
+
+	//1. 정수 n 입력 받기
+	while (1) {
+		scanf("%d", &n);
+		if (n >= 1 && n < 10000000) //정수 범위 내에서 소인수분해 가능
+			break;
+	}
+
+	//2. 정수 n 소인수분해 하기
+	for (int i = 2; i < n+1; i++) {
+		while (n % i == 0) { //n이 i로 나눠지지 않을 때까지
+			n /= i; //n을 i로 나누기
+			printf("\n%d", i); //소인수 출력
+		}
+	} 
+
+	return 0;
+}
+
+
+//계수 정렬
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+	
+  int n; //정수 n
+	int cal = 0; //연산 횟수
+	int array[100] = { 0, }; //소인수분해 결과값 저장
+  int count[100] = { 0, }; //숫자 세는 배열 (변수 선언은 위에서 한번에!)
+
+	//1. 정수 n 입력 받기
+	while (1) {
+		scanf("%d", &n);
+		if (n >= 1 && n < 10000000) //정수 범위 내에서 소인수분해 가능
+			break;
+	}
+
+	//2. 정수 n 소인수분해 하기
+	for (int i = 2; i < n + 1; i++) {
+		while (n % i == 0) { //n이 i로 나눠지지 않을 때까지
+			n /= i; //n을 i로 나누기
+			array[cal++] = i; //소인수분해 결과값 저장
+      printf("array[%d] %d", cal, i);
+			//cal++; //연산 횟수 1 증가
+      // --> array[cal++] = i ; (49줄 + 50줄) <-----
+		}
+	}
+	
+	//+ 계수 정렬로 오름차순 정리 (100이하의 소수만을 이용해서 소인수분해가 가능할 것으로 예상 및 가정한 상태)  
+	for (int i = 0; i < cal; i++) {
+		count[array[i]]++; //array[i]의 값의 숫자를 셈
+	}
+
+	for (int i = 0; i < 100; i++) {
+		if (count[i] != 0) {
+			for (int j = 0; j < count[i]; j++) //count[i]만큼 숫자를 출력
+				printf("%d \n", i);
+		}
+	}
+
+	return 0;
+}
+*/
