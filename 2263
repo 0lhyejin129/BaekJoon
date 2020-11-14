@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void order(int *, int *, int *, int, int, int, int);
+
+int main(void) {
+  int n;
+	scanf("%d", &n); //정점의 개수 입력 받기
+
+  //메모리 할당을 이용해서 배열 생성
+  int *inorder = (int*)malloc(sizeof(int)*n+1);
+  int *inorder_index = (int*)malloc(sizeof(int)*n+1);
+  //예) inorder의 1번째 원소가 2이면, inorder_index의 2번째 원소는 1
+  int *postorder = (int*)malloc(sizeof(int)*n+1);
+    
+	for (int i = 1; i <= n; i++) { //inorder 입력 받기
+		scanf("%d", &inorder[i]);
+		inorder_index[inorder[i]] = i; //inorder 배열 값을 인덱스로 갖는 배열
+	}
+
+	for (int i = 1; i <= n; i++) //postorder 입력 받기
+		scanf("%d", &postorder[i]);
+
+	order(inorder, inorder_index, postorder, 1, n, 1, n);
+
+  free(inorder); //메모리 반환
+  free(inorder_index);
+  free(postorder);
+
+	return 0;
+}
+
+void order(int *inorder, int *inorder_index, int *postorder, int inorder_start, int inorder_end, int postorder_start, int postorder_end) {
+	if (inorder_start > inorder_end || postorder_start > postorder_end)
+		return; //inorder_start 값이 end 값보다 크거나 postorder_start 값이 end 값보다 큰 경우
+
+	int root = postorder[postorder_end]; //root를 postorder의 끝 값은
+	printf("%d ", root); //preorder의 원소이므로 출력
+  
+   //postorder에서 root 값을 inorder_index를 통해 inorder의 index 값을 찾을 수 있음. inorder의 인덱스를 이용해 root 값을 기준으로 왼쪽은 left subtree, 오른쪽은 right subtree로 나눔
+   
+  //left subtree에서 실행
+	order(inorder, inorder_index, postorder, inorder_start, inorder_index[root] - 1, postorder_start, postorder_end - (inorder_end - inorder_index[root]) - 1);
+  //right subtree에서 실행
+	order(inorder, inorder_index, postorder, inorder_index[root] + 1, inorder_end, postorder_start + (inorder_index[root] - inorder_start), postorder_end - 1);
+
+  return;
+}
