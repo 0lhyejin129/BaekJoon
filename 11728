@@ -1,0 +1,47 @@
+
+#include <stdio.h>
+
+int main(void) {
+	int A_size, B_size, C_size; //배열의 크기
+	int A[256], B[256], C[256]; //배열
+	int i, j, z;
+
+	scanf("%d %d", &A_size, &B_size); //배열의 크기
+
+	for (i = 0; i < A_size; i++) //A 배열 요소 입력받기
+		scanf("%d", &A[i]);
+
+	for (j = 0; j < B_size; j++) //B 배열 요소 입력받기
+		scanf("%d", &B[j]);
+
+	C_size = A_size + B_size;
+	i = 0, j = 0, z = 0;
+
+	while (1) {
+		if (i == A_size) { //남은 A_size C 배열에 넣기
+			for (; j < B_size; j++) {
+				C[z++] = B[j];
+			}
+			break;
+		}
+		else if (j == B_size) { //남은 B_size C 배열에 넣기
+			for (; i < A_size; i++) {
+				C[z++] = A[i];
+			}
+			break;
+		}
+		else {
+			if (A[i] <= B[j]) //A[i]를 C 배열에 넣기
+				C[z++] = A[i++];
+
+			else // (A[i] > B[j]), B[i]를 C 배열에 넣기
+				C[z++] = B[j++];
+
+		}
+	}
+
+	for (i = 0; i < C_size; i++) //C 배열 출력
+		printf("%d ", C[i]);
+	
+	return 0;
+}
